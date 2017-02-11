@@ -1,11 +1,11 @@
 {
 	"manifest_version": 2,
+  "description": "This extension plays tones based on site HTML",
 	"name": "Sonification",
 	"version": "1.0",
 	"content_scripts": [{
-		"matches": ["*://*.ime.usp.br/*"],
+		"matches": ["<all_urls>"],
 		"css": ["style.css"],
 		"js": ["tones.js", "functions.js", "main.js"]
 	}]
 }
-
