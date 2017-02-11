@@ -1,11 +1,11 @@
 {
-  "manifest_version": 2,
-  "name": "Sonification",
-  "version": "1.0",
-  "content_scripts": [
-    {
-      "matches": ["*://*.ime.usp.br/*"],
-      "js": ["tones.js", "functions.js", "main.js"]
-    }
-  ]
+	"manifest_version": 2,
+	"name": "Sonification",
+	"version": "1.0",
+	"content_scripts": [{
+		"matches": ["*://*.ime.usp.br/*"],
+		"css": ["style.css"],
+		"js": ["tones.js", "functions.js", "main.js"]
+	}]
 }
+
