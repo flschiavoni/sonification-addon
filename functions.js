@@ -8,10 +8,10 @@ function delayedLoop(i, children, n) {
 	tones.play(body.offsetWidth - item.offsetWidth);
 	
 	// item.scrollIntoView(true); Comentei, pois tava ficando tonto! =P
-	item.className += " red-bg";
+	item.className += " highlight";
 	
 	setTimeout(function () {
-		var reg = new RegExp("(\\s|^)red-bg(\\s|$)");
+		var reg = new RegExp("(\\s|^)highlight(\\s|$)");
 		item.className = item.className.replace(reg, "");
 	
 		if (i < n - 1) {
