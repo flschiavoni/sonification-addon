@@ -2,12 +2,12 @@
     var tones = {
         context: new (window.AudioContext || window.webkitAudioContext)(),
         attack: 1,
-        release: 100,
+        release: 200,
         volume: 1,
         type: "sine",
 
 
-        playFrequency: function(freq) {
+        playFrequency: function(freq, modFreq) {
             this.attack = this.attack || 1;
             this.release = this.release || 1;
             var envelope = this.context.createGain();
@@ -31,7 +31,17 @@
             osc.frequency.setValueAtTime(freq, this.context.currentTime);
             osc.type = this.type;
             osc.connect(envelope);
+            
+            var modulator = this.context.createOscillator();
+            modulator.frequency.setValueAtTime(modFreq, this.context.currentTime);
+            var modulatorGain = this.context.createGain();
+            modulatorGain.gain.value = 1000;
+            
+            modulator.connect(modulatorGain);
+            modulatorGain.connect(osc.frequency);
+            
             osc.start();
+            modulator.start(0);
         },
 
         /** 
@@ -42,15 +52,15 @@
          * notes.play("eb");    // plays note e flat in default 4th octave
          * notes.play("c", 2);  // plays note c in 2nd octave
          */
-        play: function(freqOrNote, octave) {
+        play: function(freqOrNote, octave, modFreq) {
             if(typeof freqOrNote === "number") {
-                this.playFrequency(freqOrNote);
+                this.playFrequency(freqOrNote, modFreq);
             }
             else if(typeof freqOrNote === "string") {
                 if(octave == null) {
                     octave = 4;
                 }
-                this.playFrequency(this.map[octave][freqOrNote.toLowerCase()]);
+                this.playFrequency(this.map[octave][freqOrNote.toLowerCase()], modFreq);
             }
         },
 

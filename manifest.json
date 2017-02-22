@@ -1,11 +1,23 @@
 {
-	"manifest_version": 2,
-  "description": "This extension plays tones based on site HTML",
 	"name": "Sonification",
+	"description": "This extension plays tones based on site HTML.",
+	"manifest_version": 2,
 	"version": "1.0",
+	"icons": {
+		"48": "icons/sound-48.png"
+	},
 	"content_scripts": [{
-		"matches": ["<all_urls>"],
-		"css": ["style.css"],
-		"js": ["tones.js", "functions.js", "main.js"]
-	}]
+		"matches": ["*://*.ime.usp.br/*"],
+		"js": ["tones.js"],
+		"css": ["style.css"]
+	}],
+	"permissions": [
+		"activeTab"
+	],
+	"browser_action": {
+		"default_icon": "icons/sound-32.png",
+		"default_title": "Sonification",
+		"default_popup": "popup/sonification.html"	
+	}
 }
+
