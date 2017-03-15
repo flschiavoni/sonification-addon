@@ -8,7 +8,7 @@
 	},
 	"content_scripts": [{
 		"matches": ["*://*.ime.usp.br/*"],
-		"js": ["tones.js"],
+		"js": ["definitions.js", "Tone.js", "synthesizers.js"],
 		"css": ["style.css"]
 	}],
 	"permissions": [
