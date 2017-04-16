@@ -1,17 +1,18 @@
 var histogram = {};
 
-var delayedLoop = function(i, text, synth, scale) {
+var delayedLoop = function(i, text) {
 	var char = text[i];
-	console.log(char);
+	console.log(char, histogram[char]);
+
 	if (char in histogram) {
-		startNote(histogram[char]);
+		startNote(1, parseInt(histogram[char]));
 	}
 
 	setTimeout(function () {
-		stopNote();
+		stopNote(1);
 
 		if (i < text.length - 1) {
-			delayedLoop(i + 1, text, synth, scale);
+			delayedLoop(i + 1, text);
 		}
 	}, 500); // FIXME: tempo fixo
 };
@@ -55,22 +56,24 @@ var minAndMax = function(dict) {
 };
 
 var sonify = function(request, sender, sendResponse) {
-	initSynth(request.synth);
+	console.log("A");
+	initSynths();
+	console.log("B");
 	load(document.getElementsByTagName('body')[0]);
-	
+	console.log("C");
 	var values = minAndMax(histogram);
 	for (key in histogram) {
 		var num = histogram[key];
-		histogram[key] = num.map(values[0], values[1], 440, 880)
+		histogram[key] = num.map(values[0], values[1], 32, 64);
 	}
-	
+	console.log("D");
 	var selection = window.getSelection().toString();
 	if (selection) {
-		delayedLoop(0, selection, request.synth, request.scale);
+		delayedLoop(0, selection);
 	} else {
 		alert("you should select some text");
 	}
-	
+	console.log("E");
 	browser.runtime.onMessage.removeListener(sonify);
 };
 
