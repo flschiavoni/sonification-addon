@@ -46,7 +46,7 @@ var isVisible = function(element) {
 };
 
 // https://bost.ocks.org/mike/shuffle/
-	var shuffle = function(array) {
+var shuffle = function(array) {
 	var m = array.length, t, i;
 	while (m) {
 		i = Math.floor(Math.random() * m--);
@@ -78,14 +78,38 @@ var delayedLoop = function(i, children, synth) {
 	var item = children[i];
 	var note;
 	var duration;
+	var dynamics = 1;
 
-	if (synth == 1) {
-		note = 32 + item.width * 32;
-		duration = 500 + item.height * 500;
-	} else if (synth == 2) {
-		note = 32 + item.height * 32;
-		duration = 500 + item.width * 500;
-	}
+    switch(synth){
+        case 0:
+    		note = 44 + item.width * 32;
+    		duration = 500 + item.height * 500;
+    		break;
+        case 1:
+    		note = 32 + item.width * 32;
+    		duration = 500 + item.height * 500;
+    		break;
+	    case 2:
+    		note = 32 + item.height * 32;
+	    	duration = 500 + item.width * 500;
+	    	break;
+	    case 3:
+    		note = 32 + item.left % 32;
+	    	duration = 500 + item.padding * 500;
+	    	break;
+	    case 4:
+    		note = 65 + item.left * 65;
+	    	duration = 1000 * (item.padding % 5);
+	    	break;
+	    case 5:
+    		note = 32 + item.left * 32;
+	    	duration = 500 + item.padding * 500;
+	    	break;
+	    default:
+    		note = 32 + item.left * 32;
+	    	duration = 500 + item.padding * 500;
+	    	break;
+        }
 
 	startNote(synth, parseInt(note));
 	addClass(item.element, "sonification-addon-highlight");
@@ -100,13 +124,6 @@ var delayedLoop = function(i, children, synth) {
 	}, duration);
 };
 
-var startVoice1 = function() {
-	delayedLoop(0, elements.slice(), 1);
-};
-
-var startVoice2 = function() {
-	delayedLoop(0, shuffle(elements.slice()), 2);
-};
 
 var normalize = function(array, field) {
 	var min = Math.min.apply(Math, array.map(function(item) { return item[field]; } ));
@@ -163,8 +180,12 @@ var sonify = function(request, sender, sendResponse) {
 	initSynths();
 	load(document.getElementsByTagName('body')[0]);
 	normalizeAll();
-	startVoice1();
-	startVoice2();
+	delayedLoop(0, elements.slice(), 0);
+	delayedLoop(0, elements.slice(), 1);
+	delayedLoop(0, shuffle(elements.slice()), 2);
+	delayedLoop(0, elements.slice(), 3);
+	delayedLoop(0, elements.slice(), 4);
+	delayedLoop(0, elements.slice(), 5);
 	browser.runtime.onMessage.removeListener(sonify);
 };
 
