@@ -7,8 +7,9 @@
 		"48": "icons/sound-48.png"
 	},
 	"content_scripts": [{
-		"matches": ["*://*.ime.usp.br/*"],
-		"js": ["definitions.js",
+		"matches": ["<all_urls>"],
+		"js": [
+			"definitions.js",
 			"synths/commons.js",
 			"synths/WhiteNoise.js",
 			"synths/Block.js",
@@ -17,13 +18,15 @@
 			"synths/Harpsichord.js",
 			"synths/Maraca.js",
 			"synths/Pong.js",
-			"synths/main.js"],
+			"synths/main.js"
+			],
 		"css": ["style.css"]
 	}],
 	"permissions": [
 		"activeTab"
 	],
 	"browser_action": {
+		"browser_style": true,
 		"default_icon": "icons/sound-32.png",
 		"default_title": "Sonification",
 		"default_popup": "popup/sonification.html"

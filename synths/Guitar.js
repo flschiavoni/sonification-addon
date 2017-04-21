@@ -1,6 +1,6 @@
 function Guitar(context){
    this.context = context;
-   this.node = this.context.createScriptProcessor(4096, 0, 1);
+   this.node = this.context.createScriptProcessor(1024, 0, 1);
    this.envelope = new Envelope(context, 300, 100, 300, 1000, 0.7);
    this.volume = this.context.createGain();
    this.distortion = this.context.createWaveShaper();
@@ -12,10 +12,8 @@ Guitar.prototype.stop = function(time){
 }
 
 Guitar.prototype.play = function(note) {
-
    var frequency = midi[note];
    var impulse = 0.0001 * this.context.sampleRate;
-
    var N = Math.round(this.context.sampleRate / frequency);
    var y = new Float32Array(N);
    var n = 0;
@@ -29,12 +27,10 @@ Guitar.prototype.play = function(note) {
    }
 
    this.volume.gain.value = 2;
-
    this.distortion.curve = makeDistortionCurve(1000);
-
-   this.volume.connect(context.destination);
-   this.distortion.connect(this.volume);
    this.envelope.connect(this.distortion);
+   this.distortion.connect(this.volume);
+   this.volume.connect(context.destination);
    this.node.connect(this.envelope.node);
    this.envelope.play(this);
 }

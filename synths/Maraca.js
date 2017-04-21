@@ -1,10 +1,6 @@
 function Maraca(context){
    this.context = context;
-   this.envelope = new Envelope(context, 40, 0, 10, 80, 0.5);
-   this.filter = context.createBiquadFilter();
-   this.whiteNoise = new WhiteNoise(this.context);
-   this.lfo = context.createOscillator();
-   this.lfo_gain = context.createGain();
+   this.envelope = new Envelope(context, 40, 0, 60, 80, 0.5);
 }
 
 Maraca.prototype.stop = function(time){
@@ -15,6 +11,11 @@ Maraca.prototype.stop = function(time){
 
 
 Maraca.prototype.play = function(note) {
+   this.whiteNoise = new WhiteNoise(this.context);
+   this.filter = context.createBiquadFilter();
+   this.lfo = context.createOscillator();
+   this.lfo_gain = context.createGain();
+
    this.lfo.frequency.value = 1;
    this.lfo.connect(this.lfo_gain);
    this.lfo.start(0);

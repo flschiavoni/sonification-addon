@@ -15,81 +15,23 @@ div {
 <script type="text/javascript" src="Harpsichord.js"></script>
 <script type="text/javascript" src="Maraca.js"></script>
 <script type="text/javascript" src="Pong.js"></script>
+<script type="text/javascript" src="main.js"></script>
 <script>
-var context;
-var block;
-var drum;
-var guitar;
-var harpsichord;
-var maraca;
-var pong;
-context = new (window.AudioContext || window.webkitAudioContext)();
-block = new Block(context);
-drum = new Drum(context);
-guitar = new Guitar(context);
-harpsichord = new Harpsichord(context);
-maraca = new Maraca(context);
-pong = new Pong(context);
+initSynths();
+notes = [60, 62, 64, 65, 67, 69, 71, 72];
+
+for(var i = 0; i < instruments.length; i++){
+    document.write("<h3>"+ instruments[i].constructor.name+"</h3>");
+    for(var j = 0; j < notes.length; j++){
+        document.write("<div onclick='instruments[" + i +
+             "].play(" + notes[j] + "," + (1 / (j + 1)) 
+             + ");' style='background-color: #" + 
+             j + j + j + ";'></div>\n");
+    }
+}
 </script>
-</head><body>
-<h3>Block</h3>
-<div onclick="block.play(60);" style="background-color: #111;"></div>
-<div onclick="block.play(62);" style="background-color: #222;"></div>
-<div onclick="block.play(64);" style="background-color: #333;"></div>
-<div onclick="block.play(65);" style="background-color: #444;"></div>
-<div onclick="block.play(67);" style="background-color: #555;"></div>
-<div onclick="block.play(69);" style="background-color: #666;"></div>
-<div onclick="block.play(71);" style="background-color: #777;"></div>
-<div onclick="block.play(72);" style="background-color: #888;"></div>
+</head>
+<body>
 
-<h3>Drum</h3>
-<div onclick="drum.play(60);" style="background-color: #111;"></div>
-<div onclick="drum.play(62);" style="background-color: #222;"></div>
-<div onclick="drum.play(64);" style="background-color: #333;"></div>
-<div onclick="drum.play(65);" style="background-color: #444;"></div>
-<div onclick="drum.play(67);" style="background-color: #555;"></div>
-<div onclick="drum.play(69);" style="background-color: #666;"></div>
-<div onclick="drum.play(71);" style="background-color: #777;"></div>
-<div onclick="drum.play(72);" style="background-color: #888;"></div>
-
-<h3>Guitar</h3>
-<div onclick="guitar.play(60);" style="background-color: #111;"></div>
-<div onclick="guitar.play(62);" style="background-color: #222;"></div>
-<div onclick="guitar.play(64);" style="background-color: #333;"></div>
-<div onclick="guitar.play(65);" style="background-color: #444;"></div>
-<div onclick="guitar.play(67);" style="background-color: #555;"></div>
-<div onclick="guitar.play(69);" style="background-color: #666;"></div>
-<div onclick="guitar.play(71);" style="background-color: #777;"></div>
-<div onclick="guitar.play(72);" style="background-color: #888;"></div>
-
-<h3>Harpsichord</h3>
-<div onclick="harpsichord.play(60);" style="background-color: #111;"></div>
-<div onclick="harpsichord.play(62);" style="background-color: #222;"></div>
-<div onclick="harpsichord.play(64);" style="background-color: #333;"></div>
-<div onclick="harpsichord.play(65);" style="background-color: #444;"></div>
-<div onclick="harpsichord.play(67);" style="background-color: #555;"></div>
-<div onclick="harpsichord.play(69);" style="background-color: #666;"></div>
-<div onclick="harpsichord.play(71);" style="background-color: #777;"></div>
-<div onclick="harpsichord.play(72);" style="background-color: #888;"></div>
-
-<h3>Maraca</h3>
-<div onclick="maraca.play(60);" style="background-color: #111;"></div>
-<div onclick="maraca.play(62);" style="background-color: #222;"></div>
-<div onclick="maraca.play(64);" style="background-color: #333;"></div>
-<div onclick="maraca.play(65);" style="background-color: #444;"></div>
-<div onclick="maraca.play(67);" style="background-color: #555;"></div>
-<div onclick="maraca.play(69);" style="background-color: #666;"></div>
-<div onclick="maraca.play(71);" style="background-color: #777;"></div>
-<div onclick="maraca.play(72);" style="background-color: #888;"></div>
-
-<h3>Pong</h3>
-<div onclick="pong.play(60);" style="background-color: #111;"></div>
-<div onclick="pong.play(62);" style="background-color: #222;"></div>
-<div onclick="pong.play(64);" style="background-color: #333;"></div>
-<div onclick="pong.play(65);" style="background-color: #444;"></div>
-<div onclick="pong.play(67);" style="background-color: #555;"></div>
-<div onclick="pong.play(69);" style="background-color: #666;"></div>
-<div onclick="pong.play(71);" style="background-color: #777;"></div>
-<div onclick="pong.play(72);" style="background-color: #888;"></div>
-
-</body</html>
+</body>
+</html>

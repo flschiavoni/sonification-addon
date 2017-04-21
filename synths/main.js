@@ -1,33 +1,20 @@
-var context;
-var block;
-// var drum;
-var guitar;
-var harpsichord;
-// var maraca;
-var pong;
+var instruments = [];
 
 var initSynths = function() {
 	context = new (window.AudioContext || window.webkitAudioContext)();
-	block = new Block(context);
-	// drum = new Drum(context);
-	guitar = new Guitar(context);
-	harpsichord = new Harpsichord(context);
-	// maraca = new Maraca(context);
-	pong = new Pong(context);
+
+	instruments.push(new Pong(context));
+	instruments.push(new Block(context));
+	instruments.push(new Guitar(context));
+	instruments.push(new Drum(context));
+	instruments.push(new Harpsichord(context));
+	instruments.push(new Maraca(context));
 };
 
 var startNote = function(synth, note) {
-	if (synth == 1) {
-		guitar.play(note);
-	} else if (synth == 2) {
-		block.play(note);
-	}
+	instruments[synth].play(note);
 };
 
 var stopNote = function(synth) {
-	if (synth == 1) {
-		guitar.stop();
-	} else if (synth == 2) {
-		block.stop();
-	}
+	instruments[synth].stop();
 };
