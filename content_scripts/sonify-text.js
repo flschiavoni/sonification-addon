@@ -5,7 +5,7 @@ var delayedLoop = function(i, text) {
 	console.log(char, histogram[char]);
 
 	if (char in histogram) {
-		startNote(1, parseInt(histogram[char]));
+		startNote(1, parseInt(histogram[char]), 1);
 	}
 
 	setTimeout(function () {

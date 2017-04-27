@@ -23,6 +23,7 @@ notes = [60, 62, 64, 65, 67, 69, 71, 72];
 for(var i = 0; i < instruments.length; i++){
     document.write("<h3>"+ instruments[i].constructor.name+"</h3>");
     for(var j = 0; j < notes.length; j++){
+	console.log((1 / (j + 1)) );
         document.write("<div onclick='instruments[" + i +
              "].play(" + notes[j] + "," + (1 / (j + 1)) 
              + ");' style='background-color: #" + 

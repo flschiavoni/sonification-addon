@@ -6,7 +6,7 @@ var getPadding = function(style) {
 	var pl = parseInt(style.paddingLeft.replace(/[^-\d\.]/g, '')) || 0;
 	var pb = parseInt(style.paddingBottom.replace(/[^-\d\.]/g, '')) || 0;
 	var pr = parseInt(style.paddingRight.replace(/[^-\d\.]/g, '')) || 0;
-	return p + pt + pl + pb + pr;
+	return p + 10 * pt + 100 * pl + 1000 * pb + 10000 * pr;
 };
 
 var getBorderWidth = function(style) {
@@ -15,7 +15,7 @@ var getBorderWidth = function(style) {
 	var blw = parseInt(style.borderLeftWidth.replace(/[^-\d\.]/g, '')) || 0;
 	var bbw = parseInt(style.borderBottomWidth.replace(/[^-\d\.]/g, '')) || 0;
 	var brw = parseInt(style.borderRightWidth.replace(/[^-\d\.]/g, '')) || 0;
-	return bw + btw + blw + bbw + brw;
+	return bw + 10 * btw + 100 * blw + 1000 * bbw + 10000 * brw;
 };
 
 var getMargin = function(style) {
@@ -24,7 +24,7 @@ var getMargin = function(style) {
 	var ml = parseInt(style.marginLeft.replace(/[^-\d\.]/g, '')) || 0;
 	var mb = parseInt(style.marginBottom.replace(/[^-\d\.]/g, '')) || 0;
 	var mr = parseInt(style.marginRight.replace(/[^-\d\.]/g, '')) || 0;
-	return m + mt + ml + mb + mr;
+	return m + 10 * mt + 100 * ml + 1000 * mb + 10000 * mr;
 };
 
 var isVisible = function(element) {
@@ -78,36 +78,43 @@ var delayedLoop = function(i, children, synth) {
 	var item = children[i];
 	var note;
 	var duration;
-	var dynamics = 1;
+	var dynamics;
 
     switch(synth){
         case 0:
     		note = 44 + item.width * 32;
     		duration = 500 + item.height * 500;
+		dynamics = item.left;
     		break;
         case 1:
     		note = 32 + item.width * 32;
     		duration = 500 + item.height * 500;
+		dynamics = item.top;
     		break;
 	    case 2:
     		note = 32 + item.height * 32;
 	    	duration = 500 + item.width * 500;
+		dynamics = item.left;
 	    	break;
 	    case 3:
     		note = 32 + item.left % 32;
 	    	duration = 500 + item.padding * 500;
+		dynamics = item.top;
 	    	break;
 	    case 4:
     		note = 65 + item.left * 65;
 	    	duration = 1000 * (item.padding % 5);
+		dynamics = item.margin;
 	    	break;
 	    case 5:
     		note = 32 + item.left * 32;
 	    	duration = 500 + item.padding * 500;
+		dynamics = item.borderWidth;
 	    	break;
 	    default:
     		note = 32 + item.left * 32;
 	    	duration = 500 + item.padding * 500;
+		dynamics = item.top;
 	    	break;
         }
 

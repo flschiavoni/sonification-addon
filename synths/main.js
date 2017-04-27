@@ -11,8 +11,8 @@ var initSynths = function() {
 	instruments.push(new Maraca(context));
 };
 
-var startNote = function(synth, note) {
-	instruments[synth].play(note);
+var startNote = function(synth, note, dynamic) {
+	instruments[synth].play(note, dynamic);
 };
 
 var stopNote = function(synth) {
